@@ -12,6 +12,10 @@
 
 
 - (NSRange)rangeOfString:(NSString *)aString ignoringChars:(char [])chars numChars:(int)n {
+    return [self rangeOfString:aString ignoringChars:chars numChars:n ignoreCase:NO];
+}
+
+- (NSRange)rangeOfString:(NSString *)aString ignoringChars:(char [])chars numChars:(int)n ignoreCase:(BOOL)flag {
     NSRange match = NSMakeRange(0, 0);
     NSInteger left = 0, test = 0;
     NSInteger origLen = self.length;
@@ -28,10 +32,12 @@
     unichar *targetStr = malloc(sizeof(unichar) * targetLen);
     [aString getCharacters:targetStr range:NSMakeRange(0, targetLen)];
 
+#define sameLetter(x, y) ((x >= 'a' && y <= 'z' && x-'a'+'A' == y) || (x >= 'A' && x <= 'Z' && x-'A'+'a' == y))
+
     while (left < origLen && test < targetLen) {
         unichar oc = origStr[left];
 
-        if (oc == targetStr[test]) {
+        if (oc == targetStr[test] || (flag && sameLetter(oc, targetStr[test]))) {
             match.length++;
             test++;
         }

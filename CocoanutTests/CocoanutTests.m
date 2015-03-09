@@ -38,6 +38,20 @@
     expect = NSMakeRange(1, 5);
     result = [@"-1-2-3=" rangeOfString:@"1-2-3" ignoringChars:ignore2 numChars:2];
     XCTAssert(NSEqualRanges(expect, result), @"Pass");
+
+    ignore[0] = ' ';
+    expect = NSMakeRange(0, 12);
+    result = [@"Apple Canada" rangeOfString:@"appleCanada" ignoringChars:ignore numChars:1 ignoreCase:YES];
+    XCTAssert(NSEqualRanges(expect, result), @"Pass");
+}
+
+- (void)testIgnoreCases {
+    char ignore[1] = {'-'};
+    NSRange expect, result;
+
+    expect = NSMakeRange(0, 9);
+    result = [@"AaZz-zZaA" rangeOfString:@"aazzZZAA" ignoringChars:ignore numChars:1 ignoreCase:YES];
+    XCTAssert(NSEqualRanges(expect, result), @"Pass");
 }
 
 

@@ -20,4 +20,8 @@
 //      Eg. [@"-1-2-3=" rangeOfString:@"123" ignoringChars:{'-', '='} numChars:2] => {1, 5}
 - (NSRange)rangeOfString:(NSString *)aString ignoringChars:(char [])chars numChars:(int)n;
 
+// Same as above, with additional option to ignore case
+//      Eg. [@"Apple Canada" rangeOfString:@"appleCanada" ignoringChars:NULL numChars:0 ignoreCase:YES] => {x, 12}
+- (NSRange)rangeOfString:(NSString *)aString ignoringChars:(char [])chars numChars:(int)n ignoreCase:(BOOL)flag;
+
 @end
